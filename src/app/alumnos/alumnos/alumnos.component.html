@@ -1,0 +1,32 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h1>{{titulo}}</h1>
+            @if (losAlumnos.length > 0) {
+                <p-table [value]="losAlumnos" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Paterno</th>
+                            <th>Materno</th>
+                            <th>Email</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-alumno>
+                        <tr>
+                            <td>{{alumno.id}}</td>
+                            <td>{{alumno.nombre}}</td>
+                            <td>{{alumno.paterno}}</td>
+                            <td>{{alumno.materno}}</td>
+                            <td>{{alumno.email}}</td>
+                            
+                        </tr>
+                    </ng-template>
+                </p-table>
+            } @else {
+                <div class="card">No hay nada que mostrar</div>
+            }
+        </div>
+    </div>
+</div>
