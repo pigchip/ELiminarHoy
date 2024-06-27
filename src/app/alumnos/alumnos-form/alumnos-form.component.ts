@@ -55,8 +55,9 @@ export class AlumnosFormComponent implements OnInit {
   }
 
   cargarDatosAlumno() {
-    if (this.alumnoId) {
-      this.alumnoService.getAlumno(this.alumnoId).subscribe(
+    const id = this.alumnoId || this.alumno.id;
+    if (id) {
+      this.alumnoService.getAlumno(id).subscribe(
         response => {
           this.alumno = response;
         },
@@ -76,7 +77,7 @@ export class AlumnosFormComponent implements OnInit {
         }
       );
     }
-  }
+  }  
 
   confirmDelete() {
     this.confirmationService.confirm({
