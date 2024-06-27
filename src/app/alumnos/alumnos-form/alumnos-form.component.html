@@ -4,7 +4,22 @@
         <div class="grid">
             <div class="col-12 md:col-12">
                 <div class="card p-fluid">                
-                    <h1>Datos del Alumno</h1>         
+                    <h1>Gestión de Alumno</h1>
+                    <ul>
+                        <li>Para crear un alumno, ingrese los datos y presione el botón "Crear/Actualizar".</li>
+                        <li>Para actualizar un alumno, ingrese el id del alumno y presione el botón "Cargar Datos". Después, actualice los datos y presione el botón "Crear/Actualizar".</li>
+                        <li>Para eliminar un alumno, ingrese el id del alumno y presione el botón "Eliminar".</li>
+                    </ul>
+                    <div class="field">
+                        <label for="id">Id del Alumno</label>
+                        <p-inputNumber [(ngModel)]="alumno.id" id="id" name="id" mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="0"></p-inputNumber>
+                    </div>
+                    <div class="field">
+                        <button pButton type="button" label="Cargar Datos" (click)="cargarDatosAlumno()"></button>
+                    </div>
+                    <div class="field">
+                        <button pButton type="button" label="Eliminar" (click)="confirmDelete()"></button>
+                    </div>
                     <div class="field">
                         <label for="nombre">Nombre</label>
                         <input pInputText type="text" [(ngModel)]="alumno.nombre" id="nombre" name="nombre"/>
@@ -21,7 +36,7 @@
                         <label for="email">Email</label>
                         <input pInputText type="email" [(ngModel)]="alumno.email" id="email" name="email"/>
                     </div>
-                    <button pButton type="button" label="Enviar" (click)="confirm()"></button>
+                    <button pButton type="button" label="Crear/Actualizar" (click)="confirmSave()"></button>
                 </div>
             </div>
         </div>

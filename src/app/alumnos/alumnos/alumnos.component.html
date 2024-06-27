@@ -1,32 +1,39 @@
-<div class="grid">
-    <div class="col-12">
-        <div class="card">
-            <h1>{{titulo}}</h1>
-            @if (losAlumnos.length > 0) {
-                <p-table [value]="losAlumnos" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Paterno</th>
-                            <th>Materno</th>
-                            <th>Email</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-alumno>
-                        <tr>
-                            <td>{{alumno.id}}</td>
-                            <td>{{alumno.nombre}}</td>
-                            <td>{{alumno.paterno}}</td>
-                            <td>{{alumno.materno}}</td>
-                            <td>{{alumno.email}}</td>
-                            
-                        </tr>
-                    </ng-template>
-                </p-table>
-            } @else {
-                <div class="card">No hay nada que mostrar</div>
-            }
+<p-confirmDialog></p-confirmDialog>
+<div class="col-12">
+    <div class="card">
+        <div class="grid">
+            <div class="col-12 md:col-12">
+                <div class="card p-fluid">                
+                    <h1>{{ titulo }}</h1>
+                    <p-table [value]="losAlumnos">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Paterno</th>
+                                <th>Materno</th>
+                                <th>Email</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-alumno>
+                            <tr>
+                                <td>{{ alumno.id }}</td>
+                                <td>{{ alumno.nombre }}</td>
+                                <td>{{ alumno.paterno }}</td>
+                                <td>{{ alumno.materno }}</td>
+                                <td>{{ alumno.email }}</td>
+                                <td>
+                                    <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editarAlumno(alumno.id)"></button>
+                                    <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="confirmDelete(alumno.id)"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<p-toast></p-toast>
