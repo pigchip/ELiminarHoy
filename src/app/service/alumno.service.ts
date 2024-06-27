@@ -8,7 +8,7 @@ import { Alumno } from '../model/Alumno';
 })
 export class AlumnoService {
 
-  private apiUrl = 'http://localhost:8080/api/alumnos';
+  private apiUrl = 'https://alumnoapi.onrender.com/api/alumnos';
 
   constructor(private http: HttpClient) { }
 

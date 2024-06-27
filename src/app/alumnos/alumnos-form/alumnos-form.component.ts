@@ -6,19 +6,35 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import { CommonModule } from '@angular/common';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-alumnos-form',
   standalone: true,
-  imports: [FormsModule, InputTextModule, ButtonModule, InputNumberModule, ConfirmDialogModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    InputTextModule,
+    ButtonModule,
+    InputNumberModule,
+    ConfirmDialogModule,
+    ToastModule,
+    DialogModule
+  ],
   templateUrl: './alumnos-form.component.html',
   styleUrls: ['./alumnos-form.component.css'],
   providers: [ConfirmationService, MessageService]
 })
 export class AlumnosFormComponent {
   alumno: Alumno = new Alumno();
+  displayDialog: boolean = false;
+  dialogMessages: string[] = [];
+  dialogSeverity: string = '';
 
   constructor(
     private alumnoService: AlumnoService,
@@ -39,13 +55,35 @@ export class AlumnosFormComponent {
   enviarAlumno() {
     this.alumnoService.createAlumno(this.alumno).subscribe(
       response => {
-        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Alumno guardado correctamente' });
+        this.dialogMessages = ['Alumno guardado correctamente'];
+        this.dialogSeverity = 'success';
+        this.displayDialog = true;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Éxito',
+          detail: 'Alumno guardado correctamente'
+        });
         console.log('Alumno guardado correctamente:', response);
       },
-      error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al guardar alumno' });
+      (error: HttpErrorResponse) => {
+        if (error.status === 400 && error.error.errors) {
+          this.dialogMessages = error.error.errors.map((err: { field: string, message: string }) => `${err.field}: ${err.message}`);
+        } else {
+          this.dialogMessages = ['Error al guardar alumno'];
+        }
+        this.dialogSeverity = 'error';
+        this.displayDialog = true;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: this.dialogMessages.join(', ')
+        });
         console.error('Error al guardar alumno:', error);
       }
     );
+  }
+
+  hideDialog() {
+    this.displayDialog = false;
   }
 }
