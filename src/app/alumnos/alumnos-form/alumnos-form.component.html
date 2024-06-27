@@ -5,11 +5,6 @@
             <div class="col-12 md:col-12">
                 <div class="card p-fluid">                
                     <h1>Datos del Alumno</h1>         
-                    <h2>Para crear un nuevo alumno no ingreses un ID, en caso de actualizar datos ingresar el ID especifico</h2>
-                    <div class="field">
-                        <label for="id">Id</label>
-                        <p-inputNumber [(ngModel)]="alumno.id" id="id" name="id" mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="0"></p-inputNumber>
-                    </div>
                     <div class="field">
                         <label for="nombre">Nombre</label>
                         <input pInputText type="text" [(ngModel)]="alumno.nombre" id="nombre" name="nombre"/>
