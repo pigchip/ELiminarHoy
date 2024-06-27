@@ -16,8 +16,9 @@ export class HeaderComponent implements OnInit{
     this.elementosDelMenu = [
       {label: 'Home', icon: 'pi pi-home', routerLink: '/home'},
       {label: 'Alumnos', icon: 'pi pi-users', routerLink: '/alumnos'},
-      {label: 'Alumnos Form', icon: 'pi pi-user-edit', routerLink: '/alumnosForm'},
-      
+      {label: 'Alumnos Form', icon: 'pi pi-user-plus', routerLink: '/alumnosForm'},
+      {label: 'Alumnos Update', icon: 'pi pi-user-edit', routerLink: '/alumnosUpdate'},
+      {label: 'Alumnos Delete', icon: 'pi pi-user-minus', routerLink: '/alumnosDelete'},
     ]
   }
 
