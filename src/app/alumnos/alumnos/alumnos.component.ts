@@ -8,8 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-alumnos',
@@ -22,6 +22,7 @@ import { ToastModule } from 'primeng/toast';
 export class AlumnosComponent implements OnInit {
   titulo: string = 'Lista de Alumnos';
   losAlumnos: Alumno[] = [];
+  loading: boolean = true;
 
   constructor(
     private alumnoService: AlumnoService,
@@ -38,9 +39,11 @@ export class AlumnosComponent implements OnInit {
     this.alumnoService.getAlumnos().subscribe(
       (data: Alumno[]) => {
         this.losAlumnos = data;
+        this.loading = false;
       },
       (error) => {
         console.error('Error al obtener los alumnos:', error);
+        this.loading = false;
       }
     );
   }
@@ -64,7 +67,7 @@ export class AlumnosComponent implements OnInit {
     this.alumnoService.deleteAlumno(id).subscribe(
       () => {
         this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Alumno eliminado correctamente'});
-        this.getAlumnos(); // Refresca la lista de alumnos después de eliminar
+        this.getAlumnos();
       },
       (error: HttpErrorResponse) => {
         this.messageService.add({severity:'error', summary: 'Error', detail: 'Error al eliminar el alumno'});
